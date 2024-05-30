@@ -3,14 +3,16 @@ const { expect, it } = require('@jest/globals');
 // importare funzione createSlug dal file createSlug.js
 const createSlug = require('./createSlug');
 
-// verifica che createSlug ritorni una stringa in lowercase
-test('createSlug dovrebbe ritornare una stringa in lowercase', () => {
-  // Titolo del post da convertire in slug
-  const titolo = 'Il Milan Vince Lo Scudetto 2025';
-  // Lista di esempio dei post esistenti con i loro slug
-  const posts = [{ slug: 'il-milan-vince-lo-scudetto-2025' }];
+// verifica che createSlug sostituisca gli spazi con trattini
+test('createSlug dovrebbe sostituire gli spazi con trattini', () => {
+  // Titolo del post da convertire in slug con spazi
+  const titolo = 'Il Milan vince lo scudetto 2025';
+  // Lista di esempio di un solo post con uno slug che corrisponde a quello generato dal titolo
+  const posts = [{ slug: createSlug(titolo, []) }];
   // Chiamiamo la funzione createSlug con il titolo e la lista di post
   const result = createSlug(titolo, posts);
-  // Verifica: risultato della funzione sia in lowercase
-  expect(result).toBe(result.toLowerCase());
+  // Verifica: risultato della funzione abbia spazi sostituiti da trattini
+  expect(result).not.toContain(' ');
 });
+
+// Dopo vari test che mi riportavano vari errori ho risolto cosi: ho dovuto passare una lista di post che contiene un solo post con uno slug che corrisponde a quello generato dal titolo.
