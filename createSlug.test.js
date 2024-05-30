@@ -3,20 +3,16 @@ const { expect, it } = require('@jest/globals');
 // importare funzione createSlug dal file createSlug.js
 const createSlug = require('./createSlug');
 
-// verifica che createSlug lanci un errore in caso di titolo non presente o formato errato
-test('createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato', () => {
-  // Titolo del post non presente
-  const titoloNonPresente = '';
-  // Lista di esempio dei post esistenti
-  const posts = [
-    { slug: 'il-milan-vince-lo-scudetto-2025' },
-    { slug: 'bari-ritorna-in-serie-a' },
-    { slug: 'inter-retrocede-in-b' },
-  ];
-  // chiamare createSlug con un titolo non presente dovrebbe lanciare un errore
-  expect(() => createSlug(titoloNonPresente, posts)).toThrow();
-  // Titolo del post con formato errato (non stringa)
-  const titoloFormatoErrato = 6969;
-  // chiamare createSlug con un titolo con formato errato dovrebbe lanciare un errore
-  expect(() => createSlug(titoloFormatoErrato, posts)).toThrow();
+// verifica che createSlug lanci un errore se manca l'array dei post
+test("createSlug dovrebbe lanciare un errore se manca l'array dei post", () => {
+  // Titolo del post
+  const titolo = 'Titolo del post';
+  // Lista vuota dei post
+  const posts = undefined;
+  // chiamare createSlug con l'array dei post mancante lancia un errore
+  expect(createSlug.bind(null, titolo, posts)).toThrow(
+    "L'array dei post è mancante o non valido."
+  );
 });
+
+//Evita l'allocazione di una nuova funzione ad ogni chiamata al test.
