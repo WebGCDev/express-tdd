@@ -1,5 +1,8 @@
 //Funzione createSlug che prende due argomenti: titolo(stringa che rappresenta il titolo del post da convertire in slug) e posts(array di oggetti esistenti con proprietà slug)
 function createSlug(titolo, posts) {
+  if (typeof titolo !== 'string' || titolo.trim() === '') {
+    throw new Error('Il titolo non è valido.');
+  }
   //converte titolo in minuscolo, sostituendo spazi con trattini, rimuove tutti i caratteri non alfanumerici ad esclusione di trattine e underscore
   let slug = titolo
     .toLowerCase()
